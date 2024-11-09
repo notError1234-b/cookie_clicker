@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #cookie {
+            width: 150px;
+            height: 150px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Cookie_icon.svg/1024px-Cookie_icon.svg.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #score {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #upgradeButton {
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f0a500;
+            border: none;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #upgradeButton:hover {
+            background-color: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cookie Clicker Game</h1>
+    <div id="cookie"></div>
+    <div id="score">Cookies: 0</div>
+    <button id="upgradeButton">Buy Upgrade: +1 Cookie per Click (Cost: 10 Cookies)</button>
+
+    <script>
+        // Initial setup
+        let cookies = 0;
+        let cookiesPerClick = 1;
+        let upgradeCost = 10;
+
+        // References to HTML elements
+        const cookieElement = document.getElementById("cookie");
+        const scoreElement = document.getElementById("score");
+        const upgradeButton = document.getElementById("upgradeButton");
+
+        // Function to update the score on the page
+        function updateScore() {
+            scoreElement.textContent = `Cookies: ${cookies}`;
+        }
+
+        // Function to handle the cookie click
+        cookieElement.addEventListener("click", () => {
+            cookies += cookiesPerClick;
+            updateScore();
+        });
+
+        // Function to buy the upgrade
+        upgradeButton.addEventListener("click", () => {
+            if (cookies >= upgradeCost) {
+                cookies -= upgradeCost; // Deduct the cost of the upgrade
+                cookiesPerClick++; // Increase the cookies per click
+                upgradeCost = Math.floor(upgradeCost * 1.5); // Increase the upgrade cost
+                updateScore(); // Update the score
+                upgradeButton.textContent = `Buy Upgrade: +${cookiesPerClick} Cookie per Click (Cost: ${upgradeCost} Cookies)`; // Update button text
+            } else {
+                alert("Not enough cookies!");
+            }
+        });
+
+        // Initialize the game score
+        updateScore();
+    </script>
+
+</body>
+</html>
